@@ -1,0 +1,19 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "FCC Project - Local Weather Forecast",
+  "main": "index.html",
+  "scripts": {
+    "start": "browser-sync start --server --files './' --browser 'opera developer'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesurge-xyz/weather.git"
+  },
+  "author": "James Dooley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codesurge-xyz/weather/issues"
+  },
+  "homepage": "https://github.com/codesurge-xyz/weather#readme"
+}
