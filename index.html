@@ -11,7 +11,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-slate.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
 
@@ -22,12 +22,37 @@
         <header>    
         </header>
 
-        <section>
-        </section>
+        <div id="exTab2" class="container">	
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a  href="#1" data-toggle="tab">Current Weather</a>
+                </li>
+                    <li><a href="#2" data-toggle="tab">Location - RAW</a>
+                </li>
+                    <li><a href="#3" data-toggle="tab">Weather - RAW</a>
+                </li>
+            </ul>
+
+            <div class="tab-content ">
+                <div class="tab-pane active" id="1">
+                    <p></p>
+                </div>
+                <div class="tab-pane" id="2">
+                    <p>
+                        <pre id="rawLocation"></pre>
+                    </p>
+                </div>
+                <div class="tab-pane" id="3">
+                    <p>
+                        <pre id="rawWeather"></pre>
+                    </p>
+                </div>
+            </div>
+        </div>
 
         <footer>
         </footer>
-        
+
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>        
