@@ -178,7 +178,7 @@ function getLocation() {
 //  Get current weather
 //
 function getWeather() {
-    var weatherLink = "http://api.openweathermap.org/data/2.5/weather?zip=" 
+    var weatherLink = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?zip=" 
         + currentLocation.zip + "," + currentLocation.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
 
     $.getJSON(weatherLink, function(data) {
@@ -204,13 +204,6 @@ function getWeather() {
 }
 
 //-----------------------------------------------------------------------------------------
-//  Handle refresh button
-//
-function onRefresh(e) {
-    getLocation();
-}
-
-//-----------------------------------------------------------------------------------------
 //  Entry Point
 //
 $(function () {
@@ -219,7 +212,6 @@ $(function () {
     });
 
     $("#tempButton").click(onTempFormatChange);
-    $("#refreshButton").click(onRefresh);
 
     geocoder = new google.maps.Geocoder();
 
