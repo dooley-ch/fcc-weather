@@ -161,7 +161,8 @@ function geoSuccess(position) {
 }
 
 function geoError() {
-  alert("Sorry, unable to determine your location and consequently unable to supply the current weather status.");
+  alert("If you receive this message it means that the page has not been able update the weather status automatically.\n" +
+        "Please try using the refresh button to obtain the weather status, answering yes to allow the system to obtain your location.");
 }
 
 function getLocation() {
@@ -203,6 +204,13 @@ function getWeather() {
 }
 
 //-----------------------------------------------------------------------------------------
+//  Handle refresh button
+//
+function onRefresh(e) {
+    getLocation();
+}
+
+//-----------------------------------------------------------------------------------------
 //  Entry Point
 //
 $(function () {
@@ -211,6 +219,7 @@ $(function () {
     });
 
     $("#tempButton").click(onTempFormatChange);
+    $("#refreshButton").click(onRefresh);
 
     geocoder = new google.maps.Geocoder();
 
