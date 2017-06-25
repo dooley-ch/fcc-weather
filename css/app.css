@@ -1,6 +1,7 @@
 body {
     padding: 0px;
-    margin: 0px;
+    margin: 0px;    
+    font-family: 'Autour One', cursive;
 }
 
 hr {
@@ -9,33 +10,74 @@ hr {
 
 /* ----------- Weather Panel ----------- */
 
-#weather-panel {
+.weather-base-panel {
     margin-top: 200px;
     background-color: blanchedalmond;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid black;
+
+    min-height: 200px;
+    min-width: 200px;    
 }
 
 @media (min-width: 320px) {
-    #weather-panel {
+    .weather-base-panel {
         margin-top: 50px;
     }
 }
 
+@media (min-width: 768px) {
+    .weather-base-panel {
+        margin-top: 150px;
+    }
+}
+
+.weather-base-panel .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.weather-base-panel .subtitle {
+    font-size: 16px;
+}
+
 /* ----------- Current Weather ----------- */
 
-#mainWeatherImage {
+.weather-img {
     width: 100px;
     height: 100px;
     vertical-align: middle;
 }
 
-#mainTemp {
-    font-size: 36px;
+.weather-temp {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.weather-current {
+    margin-top: 16px;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.weather-wind-speed {
+    font-size: 16px;    
 }
 
 /* ----------- Forecast ----------- */
+
+.forecast-day {
+    font-size: 18px;
+}
+
+@media (min-width: 1024px) {
+    .forecast-day {
+        font-size: 16px;
+        font-weight: bold;
+    }
+}
 
 .forecast-mini-image {
     width: 35px;
@@ -43,9 +85,35 @@ hr {
     display: block;
 }
 
+@media (min-width: 768px) {
+    .forecast-mini-image {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 1024) {
+    .forecast-mini-image {
+        display: initial;
+        width: 35px;
+        height: 100px;
+        vertical-align: middle;        
+    }
+}
+
 .forecast-col-no-pad {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.forecast-weather {
+    font-size: 14px;
+}
+
+.forecast-mini-image-md {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
 }
 
 /* ----------- Backgrounds ----------- */

@@ -10,6 +10,8 @@
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+        <link href="https://fonts.googleapis.com/css?family=Autour+One" rel="stylesheet">
+
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -24,47 +26,102 @@
 
         <div id="backgroundImage" class="fill-screen background_0">
             <section class="container-fluid">
-                <div  id="weather-panel">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <div>
-                                <p>Current Weather Forecast</p>
-                                <p>(Langenthal, Switzerland)</p>
-                                <div>
-                                    <img id="mainWeatherImage" src="img/01d.png">
-                                    <span id="mainTemp">32 C</span>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                        <div class="weather-base-panel">
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <div>
+                                        <p class="title">Current Weather Forecast</p>
+                                        <p class="subtitle">(Langenthal, Switzerland)</p>
+                                        <div>
+                                            <img class="weather-img" src="img/01d.png">
+                                            <span class="weather-temp">32 C</span>
+                                        </div>
+                                        <p class="weather-current" >Scattered Clouds</p>
+                                        <p class="weather-wind-speed">Wind Speed: 5.67 knots</p>
+                                        <hr />
+                                    </div>
                                 </div>
-                                <p id="mainForecast">Scattered Clouds</p>
-                                <p id="windSpeed">Wind Speed: 5.67 knots</p>
-                                <hr />
+                            </div>
+
+                            <!-- Weather Forecast XS & SM devices -->
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-xs-2 col-xs-offset-1 text-center forecast-col-no-pad">
+                                    <span class="forecast-day">Mon</span>
+                                    <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
+                                </div>                        
+                                <div class="col-xs-2 text-center forecast-col-no-pad">
+                                    <span class="forecast-day">Tue</span>
+                                    <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
+                                </div>                        
+                                <div class="col-xs-2 text-center forecast-col-no-pad">
+                                    <span class="forecast-day">Wed</span>
+                                    <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
+                                </div>                        
+                                <div class="col-xs-2 text-center forecast-col-no-pad">
+                                    <span class="forecast-day">Thu</span>
+                                    <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
+                                </div>                        
+                                <div class="col-xs-2 text-center forecast-col-no-pad">
+                                    <span class="forecast-day">Fri</span>
+                                    <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
+                                </div>                        
+                            </div>
+
+                            <!-- Weather Forecast MD & LG devices -->
+                            <div class="row hidden-xs hidden-sm visible-md visible-lg">
+                                <div class="col-md-2 col-md-offset-1 text-center">
+                                    <span class="forecast-day">Mon</span>
+                                    <div>
+                                        <img class="forecast-mini-image-md" src="img/01d.png" alt="">
+                                        <span class="forecast-temp">32 C</span>
+                                    </div>
+                                    <p class="forecast-weather">Scattered Clouds</p>
+                                </div>                        
+                                <div class="col-md-2 text-center">
+                                    <span class="forecast-day">Tue</span>
+                                    <div>
+                                        <img class="forecast-mini-image-md" src="img/01d.png" alt="">
+                                        <span class="forecast-temp">32 C</span>
+                                    </div>
+                                    <p class="forecast-weather">Scattered Clouds</p>
+                                </div>                        
+                                <div class="col-md-2 text-center">
+                                    <span class="forecast-day">Wed</span>
+                                    <div>
+                                        <img class="forecast-mini-image-md" src="img/01d.png" alt="">
+                                        <span class="forecast-temp">32 C</span>
+                                    </div>
+                                    <p class="forecast-weather">Scattered Clouds</p>
+                                </div>                        
+                                <div class="col-md-2 text-center">
+                                    <span class="forecast-day">Thu</span>
+                                    <div>
+                                        <img class="forecast-mini-image-md" src="img/01d.png" alt="">
+                                        <span class="forecast-temp">32 C</span>
+                                    </div>
+                                    <p class="forecast-weather" >Scattered Clouds</p>
+                                </div>                        
+                                <div class="col-md-2 text-center">
+                                    <span class="forecast-day">Fri</span>
+                                    <div>
+                                        <img class="forecast-mini-image-md" src="img/01d.png" alt="">
+                                        <span class="forecast-temp">32 C</span>
+                                    </div>
+                                    <p class="forecast-weather" >Scattered Clouds</p>
+                                </div>                        
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <span class="btn-toolbar">
+                                        <button id="tempButton" class="btn btn-temp pull-right btn-temp-text"><i class="fa fa-thermometer-full"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-2 col-xs-offset-1 text-center forecast-col-no-pad">
-                            <span>Mon</span>
-                            <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
-                        </div>                        
-                         <div class="col-xs-2 text-center forecast-col-no-pad">
-                            <span>Tue</span>
-                            <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
-                        </div>                        
-                        <div class="col-xs-2 text-center forecast-col-no-pad">
-                            <span>Wed</span>
-                            <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
-                        </div>                        
-                        <div class="col-xs-2 text-center forecast-col-no-pad">
-                            <span>Thu</span>
-                            <img class="forecast-mini-image center-block" src="img/01d.png" alt="">
-                        </div>                        
-                        <div class="col-xs-2 text-center forecast-col-no-pad">
-                            <span>Fri</span>
-                            <img class="forecast-mini-image center-block" src="img/01d.png">
-                        </div>                        
-                   </div>
-                    <span class="btn-toolbar">
-                        <button id="tempButton" class="btn btn-temp pull-right btn-temp-text"><i class="fa fa-thermometer-full"></i></button>
-                    </span>
                 </div>
             </section>
         </div>
