@@ -1,0 +1,238 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.blue-background {
+    background-color: blue;
+}
+
+.yellow-background {
+    background-color: yellow;
+}
+
+.weather-panel {
+    margin-top: 200px;
+    background-color: blanchedalmond;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+@media (min-width: 320px) {
+    .weather-panel {
+        margin-top: 30px;
+        width: 90%;
+    }
+}
+
+#mainWeatherImage {
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+}
+
+#mainTemp {
+    font-size: 36px;
+}
+
+#mainForecast {
+    margin: 0px;
+    padding: 0px;
+}
+
+#windSpeed {
+    margin: 0px;
+    padding: 0px;    
+}
+
+.forecast-image {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+/* ----------- iPhone 6 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+    .weather-panel {
+        margin-top: 50px;
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+    .weather-panel {
+        margin-top: 50px;
+    }
+}
+
+/* ----------- iPhone 6+ ----------- */
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+
+    .weather-panel {
+        margin-top: 50px;
+    }
+}
+
+/* ----------- iPad mini ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+    .weather-panel {
+        margin-top: 50px;
+    }
+}
+
+/* ----------- iPad 1 and 2 ----------- */
+
+/* Portrait and Landscape */
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+    .weather-panel {
+        margin-top: 100px;
+    }
+}
+
+/* ----------- Backgrounds ----------- */
+
+.background_0 {
+    background-image: url(../img/background_zurich_weather.jpg)
+}
+
+.background_1 {
+    background-image: url(../img/background_thunderstorm.jpg)
+}
+
+.background_2 {
+    background-image: url(../img/background_drizzle.jpg)
+}
+
+.background_3 {
+    background-image: url(../img/background_rain.jpg)
+}
+
+.background_4 {
+    background-image: url(../img/background_snow.jpg)
+}
+
+.background_5 {
+    background-image: url(../img/background_clear.jpg)
+}
+
+.background_6 {
+    background-image: url(../img/background_clouds.jpg)
+}
+
+/* ----------- Hide and elements ----------- */
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .visible-xs {
+    display: block !important;
+  }
+  table.visible-xs {
+    display: table;
+  }
+  tr.visible-xs {
+    display: table-row !important;
+  }
+  th.visible-xs,
+  td.visible-xs {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm {
+    display: block !important;
+  }
+  table.visible-sm {
+    display: table;
+  }
+  tr.visible-sm {
+    display: table-row !important;
+  }
+  th.visible-sm,
+  td.visible-sm {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md {
+    display: block !important;
+  }
+  table.visible-md {
+    display: table;
+  }
+  tr.visible-md {
+    display: table-row !important;
+  }
+  th.visible-md,
+  td.visible-md {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .visible-lg {
+    display: block !important;
+  }
+  table.visible-lg {
+    display: table;
+  }
+  tr.visible-lg {
+    display: table-row !important;
+  }
+  th.visible-lg,
+  td.visible-lg {
+    display: table-cell !important;
+  }
+}

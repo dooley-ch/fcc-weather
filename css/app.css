@@ -1,0 +1,112 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+hr {
+    border-color: #954010; 
+}
+
+/* ----------- Weather Panel ----------- */
+
+#weather-panel {
+    margin-top: 200px;
+    background-color: blanchedalmond;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+@media (min-width: 320px) {
+    #weather-panel {
+        margin-top: 50px;
+    }
+}
+
+/* ----------- Current Weather ----------- */
+
+#mainWeatherImage {
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+}
+
+#mainTemp {
+    font-size: 36px;
+}
+
+/* ----------- Forecast ----------- */
+
+.forecast-mini-image {
+    width: 35px;
+    height: 35px;
+    display: block;
+}
+
+.forecast-col-no-pad {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* ----------- Backgrounds ----------- */
+
+.background_0 {
+    background-image: url(../img/background_zurich_weather.jpg)
+}
+
+.background_1 {
+    background-image: url(../img/background_thunderstorm.jpg)
+}
+
+.background_2 {
+    background-image: url(../img/background_drizzle.jpg)
+}
+
+.background_3 {
+    background-image: url(../img/background_rain.jpg)
+}
+
+.background_4 {
+    background-image: url(../img/background_snow.jpg)
+}
+
+.background_5 {
+    background-image: url(../img/background_clear.jpg)
+}
+
+.background_6 {
+    background-image: url(../img/background_clouds.jpg)
+}
+
+/* ----------- temp button ----------- */
+
+.btn-temp {
+  background-color: #954010;
+  border-color: #954010;
+}
+.btn-temp:hover,
+.btn-temp:focus,
+.btn-temp:active,
+.btn-temp.active {
+  background-color: #7e360e;
+  border-color: #672c0b;
+}
+.btn-temp.disabled:hover,
+.btn-temp.disabled:focus,
+.btn-temp.disabled:active,
+.btn-temp.disabled.active,
+.btn-temp[disabled]:hover,
+.btn-temp[disabled]:focus,
+.btn-temp[disabled]:active,
+.btn-temp[disabled].active,
+fieldset[disabled] .btn-temp:hover,
+fieldset[disabled] .btn-temp:focus,
+fieldset[disabled] .btn-temp:active,
+fieldset[disabled] .btn-temp.active {
+  background-color: #954010;
+  border-color: #954010;
+}
+
+.btn-temp-text {
+    color: white !important;
+}

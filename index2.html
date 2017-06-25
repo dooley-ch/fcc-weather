@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        
+        <title>Local Weather</title>
+        <meta name="description" content="Provides local weather information">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+
+    <body>
+        <header>    
+        </header>
+
+        <section class="container-fluid">
+            <div id="backgroundImage" class="fill-screen background_0">
+               <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+                        <div class="well weatherPanel">
+                            <h2 class="text-center title">Current Weather Status</h2>
+                            <h4 id="currentLocation" class="text-center location">...please wait...</h4>
+                            <hr />
+                            <div class="row">
+                                <div class="col-xs-6 text-right">
+                                    <img id="weatherImage" src="" alt="" class="weatherImage">
+                                </div>
+                                <div class="col-xs-6">
+                                    <p id="temperature" class="temp">
+                                    </p>
+                                </div>
+                            </div>
+                            <h4 id="weather" class="text-center"></h4>
+                            <h4 id="windspeed" class="text-center"></h4>
+                            <span class="btn-toolbar">
+                                <button id="tempButton" class="btn btn-primary pull-right"><i class="fa fa-thermometer-full"></i> Imperial</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+        </footer>
+
+        <script src="js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDglGRks8poR5v0esqqMzfQauEWPMrUns"></script>
+        <script src="js/main.js"></script>        
+    </body>
+</html>
