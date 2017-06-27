@@ -60,7 +60,7 @@ requirejs(['app', 'renderer'], function (app, renderer) {
     'use strict';
     app.init();
 
-    var currentWeather = new renderer.Forecast(1, 34.5, "02d", "Funny", 23);
+    var currentWeather = new renderer.CurrentWeather(1, 34.5, "02d", "Funny", 23);
 
     renderer.display("Kilmaine, Ireland", currentWeather);
 });

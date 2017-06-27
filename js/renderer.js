@@ -107,14 +107,6 @@ define(function (require, exports, module) {
         _display();
     };
 
-    exports.Forecast = function(dt, temp, imgUrl, weather, speed) {
-            this.temperatureDate = dt;
-            this.temperature = temp;
-            this.imgUrl = imgUrl;
-            this.weather = weather;
-            this.windSpeed = speed;
-    };
-
     exports.displayDayOne = function () {
         _displayDayOne();
     };
@@ -133,5 +125,28 @@ define(function (require, exports, module) {
 
     exports.displayDayFive = function () {
         _displayDayFive();
+    };
+
+    exports.CurrentWeather = function(dt, temp, imgUrl, weather, speed) {
+        this.Date = dt;
+        this.temperature = temp;
+        this.imgUrl = imgUrl;
+        this.weather = weather;
+        this.windSpeed = speed;
+    };
+    
+    exports.Forecast = function (dt, imgUrl) {
+        this._items = Array();
+
+        this.Date = dt;
+        this.imgUrl = imgUrl;
+
+        this.add = function(item) {
+            this._items.push(item);
+        };
+
+        this.get = function(ndx) {
+            return this._items[ndx];
+        };
     };
 });
