@@ -20,18 +20,29 @@ hr {
 
 
 .weather-base-panel .title {
-    font-size: 18px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 6px;
 }
 
 .weather-base-panel .subtitle {
-    font-size: 16px;
+    font-size: 22px;
+    margin-bottom: 15px;
 }
 
 @media (max-height: 800px) {
     .weather-base-panel {
         margin-top: 8em;
+    }
+
+    .weather-base-panel .title {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+
+    .weather-base-panel .subtitle {
+        font-size: 18px;
+        margin-bottom: 15px;
     }
 }
 
@@ -51,8 +62,24 @@ hr {
     .weather-base-panel {
         margin-top: 6em;
     }
+
+    .weather-base-panel .title {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+
+    .weather-base-panel .subtitle {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
 }
 
+@media (max-height: 568px) {
+    .weather-base-panel .title {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+}
 
 /* ----------- Current Weather ----------- */
 
@@ -75,6 +102,59 @@ hr {
 
 .weather-wind-speed {
     font-size: 16px;    
+}
+
+.weather-base-panel .subtitle {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+@media (max-height: 736px) {
+    .weather-img {
+        width: 85px;
+        height: 85px;
+    }
+
+    .weather-temp {
+        font-size: 35px;
+        font-weight: bold;
+    }
+}
+
+@media (max-height: 667px) {
+    .weather-img {
+        width: 85px;
+        height: 85px;
+    }
+
+    .weather-temp {
+        font-size: 35px;
+        font-weight: bold;
+    }
+}
+
+@media (max-height: 640px) {
+    .weather-img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .weather-temp {
+        font-size: 30px;
+        font-weight: bold;
+    }
+}
+
+@media (max-height: 568px) {
+    .weather-img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .weather-temp {
+        font-size: 30px;
+        font-weight: bold;
+    }
 }
 
 /* ----------- Forecast ----------- */
