@@ -57,7 +57,7 @@ define(function (require, exports, module) {
         if (_useMetricTemp) {
             _currentTempID.text(_round(_currentWeather.temperature, 1) + " C");            
         } else {
-            _currentTempID.text(_round(_toFahrenheit(currentWeather.temperature), 1) + " F");
+            _currentTempID.text(_round(_toFahrenheit(_currentWeather.temperature), 1) + " F");
         }
 
         var knots = _round(_currentWeather.windSpeed * 1.943844, 2);
@@ -69,6 +69,26 @@ define(function (require, exports, module) {
     function _toggleMetricTemp() {
         _useMetricTemp = !_useMetricTemp;
         _display();
+    }
+
+    function _displayDayOne() {
+        alert("Day One");
+    }
+
+    function _displayDayTwo() {
+        alert("Day Two");
+    }
+
+    function _displayDayThree() {
+        alert("Day Three");
+    }
+
+    function _displayDayFour() {
+        alert("Day Four");
+    }
+
+    function _displayDayFive() {
+        alert("Day Five");
     }
 
     exports.init = function () {
@@ -93,5 +113,25 @@ define(function (require, exports, module) {
             this.imgUrl = imgUrl;
             this.weather = weather;
             this.windSpeed = speed;
+    };
+
+    exports.displayDayOne = function () {
+        _displayDayOne();
+    };
+
+    exports.displayDayTwo = function () {
+        _displayDayTwo();
+    };
+
+    exports.displayDayThree = function () {
+        _displayDayThree();
+    };
+
+    exports.displayDayFour = function () {
+        _displayDayFour();
+    };
+
+    exports.displayDayFive = function () {
+        _displayDayFive();
     };
 });

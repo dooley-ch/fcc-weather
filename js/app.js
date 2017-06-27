@@ -19,10 +19,6 @@ define("app", function (require, exports, module) {
     var $ = require("jquery");
     var renderer = require("renderer");
 
-    function _onToggleMetricTemp(e) {
-        renderer.toggleMetricTemp();
-    }
-
     function _init() {
         $(window).on("load resize", function () {
             $(".fill-screen").css("height", window.innerHeight);
@@ -30,7 +26,29 @@ define("app", function (require, exports, module) {
 
         renderer.init();
 
-        $("#tempButton").click(_onToggleMetricTemp);
+        $("#tempButton").click(function (e) { 
+            renderer.toggleMetricTemp();
+        });
+
+        $("#dayButtonOne").click(function (e) { 
+            renderer.displayDayOne();
+        });
+
+        $("#dayButtonTwo").click(function (e) { 
+            renderer.displayDayTwo();
+        });
+
+        $("#dayButtonThree").click(function (e) { 
+            renderer.displayDayThree();
+        });
+
+        $("#dayButtonFour").click(function (e) { 
+            renderer.displayDayFour();
+        });
+
+        $("#dayButtonFive").click(function (e) { 
+            renderer.displayDayFive();
+        });
     }
 
     exports.init = function () {
