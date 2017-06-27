@@ -6,6 +6,8 @@ define(function (require, exports, module) {
 
     var _useMetricTemp = true;
 
+    var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
     var _locationID;
     var _currentImageID;
     var _currentTempID;
@@ -14,7 +16,7 @@ define(function (require, exports, module) {
 
     var _location;
     var _currentWeather;
-    var _forecast;
+    var _forecasts;
 
     function _init() {
         _locationID = $("#locationId");
@@ -22,6 +24,10 @@ define(function (require, exports, module) {
         _currentTempID = $("#tempId");
         _currentWeatherID = $("#weatherId");
         _currentWindSpeedID = $("#windSpeedId");
+    }
+
+    function _getDayOfWeek(dt) {
+        return weekdays[dt.getDay()];
     }
 
     function _titleCase(str) {
@@ -64,6 +70,32 @@ define(function (require, exports, module) {
         _currentWindSpeedID.text("Wind Speed: " + knots + " knots");
 
         _currentWeatherID.text(_titleCase(_currentWeather.weather));
+
+        // Show forecast icons
+        var item = _forecasts[0];
+        imgUrl = "img/" + item.imgUrl + ".png";
+        $("#dayOneImage").attr("src", imgUrl);
+        $("#dayOneDate").text(_getDayOfWeek(item.date));
+
+        item = _forecasts[1];
+        imgUrl = "img/" + item.imgUrl + ".png";
+        $("#dayTwoImage").attr("src", imgUrl);
+        $("#dayTwoDate").text(_getDayOfWeek(item.date));
+
+        item = _forecasts[2];
+        imgUrl = "img/" + item.imgUrl + ".png";
+        $("#dayThreeImage").attr("src", imgUrl);
+        $("#dayThreeDate").text(_getDayOfWeek(item.date));
+
+        item = _forecasts[3];
+        imgUrl = "img/" + item.imgUrl + ".png";
+        $("#dayFourImage").attr("src", imgUrl);
+        $("#dayFourDate").text(_getDayOfWeek(item.date));
+
+        item = _forecasts[4];
+        imgUrl = "img/" + item.imgUrl + ".png";
+        $("#dayFiveImage").attr("src", imgUrl);
+        $("#dayFiveDate").text(_getDayOfWeek(item.date));
     }
 
     function _toggleMetricTemp() {
@@ -99,10 +131,10 @@ define(function (require, exports, module) {
         _toggleMetricTemp();
     };
 
-    exports.display = function(location, current, forecast) {
+    exports.display = function(location, current, forecasts) {
         _location = location;
         _currentWeather = current;
-        _forecast = forecast;
+        _forecasts = forecasts;
 
         _display();
     };
@@ -128,7 +160,7 @@ define(function (require, exports, module) {
     };
 
     exports.CurrentWeather = function(dt, temp, imgUrl, weather, speed) {
-        this.Date = dt;
+        this.date = dt;
         this.temperature = temp;
         this.imgUrl = imgUrl;
         this.weather = weather;
@@ -136,17 +168,9 @@ define(function (require, exports, module) {
     };
     
     exports.Forecast = function (dt, imgUrl) {
-        this._items = Array();
+        this.items = [];
 
-        this.Date = dt;
+        this.date = dt;
         this.imgUrl = imgUrl;
-
-        this.add = function(item) {
-            this._items.push(item);
-        };
-
-        this.get = function(ndx) {
-            return this._items[ndx];
-        };
     };
 });

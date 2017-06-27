@@ -60,7 +60,14 @@ requirejs(['app', 'renderer'], function (app, renderer) {
     'use strict';
     app.init();
 
-    var currentWeather = new renderer.CurrentWeather(1, 34.5, "02d", "Funny", 23);
+    var forecasts = [];
+    var currentWeather = new renderer.CurrentWeather(Date.parse("March 21, 2012"), 34.5, "02d", "Cloudy with rain", 1.2);
+ 
+    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 21, 2012")), "10d"));
+    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 22, 2012")), "11d"));
+    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 23, 2012")), "02d"));
+    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 24, 2012")), "04d"));
+    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 25, 2012")), "13d"));
 
-    renderer.display("Kilmaine, Ireland", currentWeather);
+    renderer.display("Kilmaine, Ireland", currentWeather, forecasts);
 });
