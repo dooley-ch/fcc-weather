@@ -21,15 +21,128 @@ hr {
     min-width: 200px;    
 }
 
-@media (min-width: 320px) {
+/* IPhone 5s */
+@media (min-width: 320px) and (min-height: 568px) {
+    .weather-base-panel {
+        margin-top: 75px;
+    }
+}
+
+/* IPhone 5s */
+@media (min-width: 568px) and (min-height: 320px) {
+    .weather-base-panel {
+        margin-top: 10px;
+    }
+}
+
+/* IPhone 6s & IPhone 7 */
+@media (min-width: 375px) and (min-height: 667px) {
+    .weather-base-panel {
+        margin-top: 100px;
+    }
+}
+
+/* IPhone 6 Plus & IPhone 7 Plus */
+@media (min-width: 414px) and (min-height: 736px) {
+    .weather-base-panel {
+        margin-top: 150px;
+    }
+}
+
+/* IPad */
+@media (min-width: 768px) and (min-height: 1024px) {
+    .weather-base-panel {
+        margin-top: 250px;
+    }
+}
+
+/* Blackberry Playbook */
+@media (min-width: 1024px) and (min-height: 600px) {
+    .weather-base-panel {
+        margin-top: 75px;
+    }
+}
+
+@media (min-width: 600px) and (min-height: 1024px) {
+    .weather-base-panel {
+        margin-top: 175px;
+    }
+}
+
+/* Kindle Fire */
+@media (min-width: 1280px) and (min-height: 800px) {
+    .weather-base-panel {
+        margin-top: 175px;
+    }
+}
+
+@media (min-width: 800px) and (min-height: 1280px) {
+    .weather-base-panel {
+        margin-top: 275px;
+    }
+}
+
+/* Nexus 7 */
+@media (min-width: 960px) and (min-height: 600px) {
+    .weather-base-panel {
+        margin-top: 75px;
+    }
+}
+
+@media (min-width: 600px) and (min-height: 960px) {
+    .weather-base-panel {
+        margin-top: 275px;
+    }
+}
+
+/* Laptops */
+@media (min-width: 1366px) and (min-height: 768px) {
+    .weather-base-panel {
+        margin-top: 140px;
+    }
+}
+
+@media (min-width: 768px) and (min-height: 1366px) {
+    .weather-base-panel {
+        margin-top: 375px;
+    }
+}
+
+@media (min-width: 1280px) and (min-height: 720px) {
+    .weather-base-panel {
+        margin-top: 140px;
+    }
+}
+
+@media (min-width: 720px) and (min-height: 1280px) {
+    .weather-base-panel {
+        margin-top: 375px;
+    }
+}
+
+/* Lumia 520 */
+@media (min-width: 320px) and (min-height: 533px) {
     .weather-base-panel {
         margin-top: 50px;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 533px) and (min-height: 320px) {
     .weather-base-panel {
-        margin-top: 150px;
+        margin-top: 10px;
+    }
+}
+
+/* Galaxy Note 3 */
+@media (min-width: 360px) and (min-height: 640px) {
+    .weather-base-panel {
+        margin-top: 100px;
+    }
+}
+
+@media (min-width: 533px) and (min-height: 320px) {
+    .weather-base-panel {
+        margin-top: 10px;
     }
 }
 
