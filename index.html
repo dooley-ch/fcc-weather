@@ -29,13 +29,15 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
                         <div class="weather-base-panel">
+
+                            <!-- Current Weather -->
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <div>
                                         <p class="title">Current Weather Forecast</p>
                                         <p id="locationId" class="subtitle">(Langenthal, Switzerland)</p>
                                         <div>
-                                            <img id="imgId" class="weather-img" src="http://via.placeholder.com/100x100">
+                                            <img id="imgId" class="weather-img" src="https://via.placeholder.com/100x100">
                                             <span id="tempId" class="weather-temp"></span>
                                         </div>
                                         <p id="weatherId" class="weather-current" ></p>
@@ -45,44 +47,118 @@
                                 </div>
                             </div>
 
+                            <!-- Weather forecast panel -->
                             <div class="row">
                                 <div class="col-xs-2 col-xs-offset-1 text-center forecast-col-no-pad">
-                                    <a id="dayButtonOne" href="#">
+                                    <span id="dayButtonOne" class="handPointer">
                                         <span id="dayOneDate" class="forecast-day"></span>
-                                        <img id="dayOneImage" class="forecast-mini-image center-block" src="http://via.placeholder.com/35x35" alt="">
-                                    </a>
+                                        <img id="dayOneImage" class="forecast-mini-image center-block" src="https://via.placeholder.com/35x35" alt="">
+                                    </span>
                                 </div>                        
                                 <div class="col-xs-2 text-center forecast-col-no-pad">
-                                    <a id="dayButtonTwo" href="#">
+                                    <span id="dayButtonTwo" class="handPointer">
                                         <span id="dayTwoDate" class="forecast-day"></span>
-                                        <img id="dayTwoImage" class="forecast-mini-image center-block" src="http://via.placeholder.com/35x35" alt="">
-                                    </a>
+                                        <img id="dayTwoImage" class="forecast-mini-image center-block" src="https://via.placeholder.com/35x35" alt="">
+                                    </span>
                                 </div>                        
                                 <div class="col-xs-2 text-center forecast-col-no-pad">
-                                    <a id="dayButtonThree" href="#">
+                                    <span id="dayButtonThree" class="handPointer">
                                         <span id="dayThreeDate" class="forecast-day"></span>
-                                        <img id="dayThreeImage" class="forecast-mini-image center-block" src="http://via.placeholder.com/35x35" alt="">
-                                    </a>
+                                        <img id="dayThreeImage" class="forecast-mini-image center-block" src="https://via.placeholder.com/35x35" alt="">
+                                    </span>
                                 </div>                        
                                 <div class="col-xs-2 text-center forecast-col-no-pad">
-                                    <a id="dayButtonFour" href="#">
+                                    <span id="dayButtonFour" class="handPointer">
                                         <span id="dayFourDate" class="forecast-day"></span>
-                                        <img id="dayFourImage" class="forecast-mini-image center-block" src="http://via.placeholder.com/35x35" alt="">
-                                    </a>
+                                        <img id="dayFourImage" class="forecast-mini-image center-block" src="https://via.placeholder.com/35x35" alt="">
+                                    </span>
                                 </div>                        
                                 <div class="col-xs-2 text-center forecast-col-no-pad">
-                                    <a id="dayButtonFive" href="#">
+                                    <span id="dayButtonFive" class="handPointer">
                                         <span id="dayFiveDate" class="forecast-day"></span>
-                                        <img id="dayFiveImage" class="forecast-mini-image center-block" src="http://via.placeholder.com/35x35" alt="">
-                                    </a>
+                                        <img id="dayFiveImage" class="forecast-mini-image center-block" src="https://via.placeholder.com/35x35" alt="">
+                                    </span>
                                 </div>                        
                             </div>
 
+                            <!-- Change temp format button bar -->
                             <div class="row">
                                 <div class="col-sm-12">
                                     <span class="btn-toolbar">
                                         <button id="tempButton" class="btn btn-temp pull-right btn-temp-text"><i class="fa fa-thermometer-full"></i></button>
                                     </span>
+                                </div>
+                            </div>
+
+                            <!-- Forecast dialog -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div id="tempDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                 <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td class="active">...</td>
+                                                        <td class="success">...</td>
+                                                        <td class="warning">...</td>
+                                                        <td class="danger">...</td>
+                                                        <td class="info">...</td>
+                                                    </tr>                                                    
+                                                </table>                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>                    
                                 </div>
                             </div>
                         </div>

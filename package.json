@@ -4,7 +4,7 @@
   "description": "FCC Project - Local Weather Forecast",
   "main": "index.html",
   "scripts": {
-    "start": "browser-sync start --server --files './' --browser 'firefox'"
+    "start": "browser-sync start --server --files --https './' --browser 'firefox'"
   },
   "repository": {
     "type": "git",

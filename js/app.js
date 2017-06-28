@@ -17,7 +17,11 @@ define("app", function (require, exports, module) {
     'use strict';
 
     var $ = require("jquery");
+    var bootstrap = require("bootstrap");
+    
+    var loc = require("location");
     var renderer = require("renderer");
+    var weather = require("weather");
 
     function _init() {
         $(window).on("load resize", function () {
@@ -56,18 +60,11 @@ define("app", function (require, exports, module) {
     };
 });
 
-requirejs(['app', 'renderer'], function (app, renderer) {
+requirejs(['app', 'renderer', 'weather'], function (app, renderer, weather) {
     'use strict';
     app.init();
 
-    var forecasts = [];
-    var currentWeather = new renderer.CurrentWeather(Date.parse("March 21, 2012"), 34.5, "02d", "Cloudy with rain", 1.2);
- 
-    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 21, 2012")), "10d"));
-    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 22, 2012")), "11d"));
-    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 23, 2012")), "02d"));
-    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 24, 2012")), "04d"));
-    forecasts.push(new renderer.Forecast(new Date(Date.parse("March 25, 2012")), "13d"));
-
-    renderer.display("Kilmaine, Ireland", currentWeather, forecasts);
+    weather.getWeather("4900", "ch", function (data) {
+        renderer.display("Kilmaine, Ireland", data);
+    });
 });

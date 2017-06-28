@@ -18,7 +18,6 @@ hr {
     margin-top: 15em;
 }
 
-
 .weather-base-panel .title {
     font-size: 28px;
     font-weight: bold;
@@ -28,6 +27,11 @@ hr {
 .weather-base-panel .subtitle {
     font-size: 22px;
     margin-bottom: 15px;
+}
+
+.handPointer {
+    cursor: pointer;
+    cursor: hand;
 }
 
 @media (max-height: 800px) {

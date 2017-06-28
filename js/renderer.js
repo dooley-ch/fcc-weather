@@ -14,9 +14,61 @@ define(function (require, exports, module) {
     var _currentWeatherID;
     var _currentWindSpeedID;
 
+    var _dialog;
+
     var _location;
     var _currentWeather;
-    var _forecasts;
+    var _forecasts = [];
+
+    function _newForecastItem() {
+        var item = {
+            weekday: "",
+            imgUrl: "",
+            items: []
+        };
+
+        return item;
+    }
+
+    function _setDailyForecast(data) {
+        var item;
+
+        if (data.items.length <= 4) {
+            item = data.items[0];
+        } else {
+            item = data.items[3];
+        }
+
+        data.weekday = _getDayOfWeek(item.date);
+        data.imgUrl = item.weatherIcon;
+
+        return data;
+    }
+
+    function _parseWeatherData(data) {
+        _currentWeather = data.current;
+
+        var currentDate = "";
+        var currentDayForecast = null;
+
+        data.forecast.forEach(function (item) {
+            // Check if we need to move to the next forecast date
+            var dt = item.dateText.substring(0, 10);
+
+            if (currentDate !== dt) {
+                if (currentDayForecast !== null) {
+                    _forecasts.push(_setDailyForecast(currentDayForecast));
+                }
+                
+                currentDayForecast = _newForecastItem();
+                currentDate = dt;
+            }
+            
+            currentDayForecast.items.push(item);
+        });
+
+
+    }
 
     function _init() {
         _locationID = $("#locationId");
@@ -24,6 +76,7 @@ define(function (require, exports, module) {
         _currentTempID = $("#tempId");
         _currentWeatherID = $("#weatherId");
         _currentWindSpeedID = $("#windSpeedId");
+        _dialog = $('#tempDialog');
     }
 
     function _getDayOfWeek(dt) {
@@ -57,7 +110,7 @@ define(function (require, exports, module) {
         _locationID.text("(" + _location + ")");
 
         // Show the current weather
-        var imgUrl = "img/" + _currentWeather.imgUrl + ".png";
+        var imgUrl = "img/" + _currentWeather.weatherIcon + ".png";
         _currentImageID.attr("src", imgUrl);
 
         if (_useMetricTemp) {
@@ -69,33 +122,33 @@ define(function (require, exports, module) {
         var knots = _round(_currentWeather.windSpeed * 1.943844, 2);
         _currentWindSpeedID.text("Wind Speed: " + knots + " knots");
 
-        _currentWeatherID.text(_titleCase(_currentWeather.weather));
+        _currentWeatherID.text(_titleCase(_currentWeather.weatherDescription));
 
         // Show forecast icons
         var item = _forecasts[0];
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayOneImage").attr("src", imgUrl);
-        $("#dayOneDate").text(_getDayOfWeek(item.date));
+        $("#dayOneDate").text(item.weekday);
 
         item = _forecasts[1];
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayTwoImage").attr("src", imgUrl);
-        $("#dayTwoDate").text(_getDayOfWeek(item.date));
+        $("#dayTwoDate").text(item.weekday);
 
         item = _forecasts[2];
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayThreeImage").attr("src", imgUrl);
-        $("#dayThreeDate").text(_getDayOfWeek(item.date));
+        $("#dayThreeDate").text(item.weekday);
 
         item = _forecasts[3];
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayFourImage").attr("src", imgUrl);
-        $("#dayFourDate").text(_getDayOfWeek(item.date));
+        $("#dayFourDate").text(item.weekday);
 
         item = _forecasts[4];
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayFiveImage").attr("src", imgUrl);
-        $("#dayFiveDate").text(_getDayOfWeek(item.date));
+        $("#dayFiveDate").text(item.weekday);
     }
 
     function _toggleMetricTemp() {
@@ -104,23 +157,23 @@ define(function (require, exports, module) {
     }
 
     function _displayDayOne() {
-        alert("Day One");
+        _dialog.modal('show');
     }
 
     function _displayDayTwo() {
-        alert("Day Two");
+        _dialog.modal('show');
     }
 
     function _displayDayThree() {
-        alert("Day Three");
+        _dialog.modal('show');
     }
 
     function _displayDayFour() {
-        alert("Day Four");
+        _dialog.modal('show');
     }
 
     function _displayDayFive() {
-        alert("Day Five");
+        _dialog.modal('show');
     }
 
     exports.init = function () {
@@ -131,10 +184,9 @@ define(function (require, exports, module) {
         _toggleMetricTemp();
     };
 
-    exports.display = function(location, current, forecasts) {
+    exports.display = function(location, weatherData) {
         _location = location;
-        _currentWeather = current;
-        _forecasts = forecasts;
+        _parseWeatherData(weatherData);
 
         _display();
     };
@@ -157,20 +209,5 @@ define(function (require, exports, module) {
 
     exports.displayDayFive = function () {
         _displayDayFive();
-    };
-
-    exports.CurrentWeather = function(dt, temp, imgUrl, weather, speed) {
-        this.date = dt;
-        this.temperature = temp;
-        this.imgUrl = imgUrl;
-        this.weather = weather;
-        this.windSpeed = speed;
-    };
-    
-    exports.Forecast = function (dt, imgUrl) {
-        this.items = [];
-
-        this.date = dt;
-        this.imgUrl = imgUrl;
     };
 });
