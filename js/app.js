@@ -64,7 +64,11 @@ requirejs(['app', 'renderer', 'weather'], function (app, renderer, weather) {
     'use strict';
     app.init();
 
-    weather.getWeather("4900", "ch", function (data) {
-        renderer.display("Kilmaine, Ireland", data);
+    weather.getWeather("4900", "ch", function (err, data) {
+        if (err != null) {
+            alert("Unable to obtain weather information: " + err);
+        } else {
+            renderer.display("Kilmaine, Ireland", data);
+        }
     });
 });

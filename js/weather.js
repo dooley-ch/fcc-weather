@@ -2,27 +2,36 @@ define(function (require, exports, module) {
     //jshint unused:false
     'use strict';
 
-    function _getWeather(zip, countryCode, proc) {
+
+    /**
+     * This function obtains the current weather and forecast data via
+     * two calls to the openweathermap api:
+     * https://openweathermap.org
+     * 
+     * @param {string}   zip             - The zip code for the city 
+     * @param {string}   countryCode     - The 2 letter ISO code for the country
+     * @param {function} done          - A callback functon to return the data 
+     */
+    function _getWeather(zip, countryCode, done) {
         var forecast = [];
         var current;
 
-        $.getJSON("data/currentWeather.json", function(data) {
-            var forecast = [];
+        $.getJSON("data/currentWeather.json").done(function (currentData) {
             var current;
 
             current = {
-                date: new Date(data.dt * 1000),
-                temperature: data.main.temp,
-                weatherId: data.weather[0].id,
-                weatherIcon: data.weather[0].icon,
-                weatherDescription: data.weather[0].description,
-                windSpeed: data.wind.speed
+                date: new Date(currentData.dt * 1000),
+                temperature: currentData.main.temp,
+                weatherId: currentData.weather[0].id,
+                weatherIcon: currentData.weather[0].icon,
+                weatherDescription: currentData.weather[0].description,
+                windSpeed: currentData.wind.speed
             };
 
-            $.getJSON("data/weather.json", function(data) {
-                var forecastData = data.list;
+            $.getJSON("data/weather.json").done(function (forecastData) {
+                var forecast = [];
 
-                forecastData.forEach(function (item) {
+                forecastData.list.forEach(function (item) {
                     var forecastItem = {
                         date: new Date(item.dt * 1000),
                         dateText: item.dt_txt,
@@ -32,7 +41,7 @@ define(function (require, exports, module) {
                         weatherDescription: item.weather[0].description
                     };
                     
-                    forecast.push(forecastItem);
+                    forecast.push(forecastItem);                    
                 });
 
                 var result = {
@@ -40,14 +49,20 @@ define(function (require, exports, module) {
                     forecast: forecast
                 };
 
-                if (typeof proc === "function") {
-                    proc(result);
+                if (typeof done === "function") {
+                    done(null, result);
                 }
-            });            
+
+            }).fail(function () {
+                return done("Unable to load forecase data", null);
+            });
+
+        }).fail(function () {
+            return done("Unable to load current weather data", null);
         });
     }
 
-    exports.getWeather = function(zip, countryCode, proc) {
-        return _getWeather(zip, countryCode, proc);
+    exports.getWeather = function(zip, countryCode, done) {
+        return _getWeather(zip, countryCode, done);
     };
 });
