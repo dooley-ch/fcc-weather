@@ -10,8 +10,12 @@ define(function (require, exports) {
      * @returns {void}
      */
     function _getLocationByIP(callback) {
-        $.getJSON("https://ipinfo.io/json").done(function (ipData) {            
+        $.getJSON("https://ipinfo.io/json").done(function (ipData) {  
+            var loc = ipData.loc.split(",");
+
             var locData = {
+                latitude: loc[0],
+                longitude: loc[1],
                 location: ipData.city + ", " + ipData.country,
                 zip: ipData.postal,
                 countryCode: ipData.country.toLowerCase()
@@ -27,7 +31,7 @@ define(function (require, exports) {
                 return callback(null, locData);
             });
         }).fail(function () {
-            return callback("Unable to obtain your location", null);
+            return callback("Unable to obtain your location via IP lookup or geolocation API", null);
         });
     }
 
@@ -38,31 +42,17 @@ define(function (require, exports) {
      * @returns {void}
      */
     function _getLocation(callback) {
-        var geocoder = new google.maps.Geocoder();
-
         if (!navigator.geolocation) {
             return _getLocationByIP(callback);
         }
 
         navigator.geolocation.getCurrentPosition(function (loc) {
-            var latlng = new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude);
+            var locData = {
+                latitude: loc.coords.latitude,
+                longitude: loc.coords.longitude
+            };
 
-            geocoder.geocode({"latLng": latlng}, function(results, status) {
-                if (status != google.maps.GeocoderStatus.OK) {
-                    return _getLocationByIP(callback);
-                }
-
-                var data = results[0].address_components;
-
-                var locData = {
-                    location: data[2].long_name + ", " + data[5].long_name,
-                    zip: data[6].long_name,
-                    countryCode: data[5].short_name.toLowerCase()
-                };
-
-                return callback(null, locData); 
-            });
-
+            return callback(null, locData);
         }, function () {
             return _getLocationByIP(callback);
         });

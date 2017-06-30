@@ -4,6 +4,22 @@ define(function (require, exports) {
     var $ = require("jquery");
     
     /**
+     * This function builds the URL used to obtain the weather data
+     * 
+     * @param {object} loc - location data 
+     * @param {string} requestType - request type weather or forecast
+     * @returns {string}
+     */
+    function _buildWeatherUrl(loc, requestType) {
+        if (loc.hasOwnProperty("location")) {
+            return "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/" + requestType + "?zip=" +
+                loc.zip + "," + loc.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
+        } else {
+            return "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/" + requestType + "?lat=" + loc.latitude + 
+                "&lon=" + loc.longitude + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
+        }
+    }
+    /**
      * This function obtains the current weather and forecast data via
      * two calls to the openweathermap api:
      * https://openweathermap.org
@@ -14,11 +30,9 @@ define(function (require, exports) {
      * @return {void}
      */
     function _getWeather(loc, done) {
-        var url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?zip=" +
-            loc.zip + "," + loc.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
-
-        $.getJSON(url).done(function (currentData) {
+        $.getJSON(_buildWeatherUrl(loc, "weather")).done(function (currentData) {
             var current;
+            var forecast = [];
 
             current = {
                 date: new Date(currentData.dt * 1000),
@@ -29,12 +43,7 @@ define(function (require, exports) {
                 windSpeed: currentData.wind.speed
             };
 
-            url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?zip=" +
-                loc.zip + "," + loc.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
-
-            $.getJSON(url).done(function (forecastData) {
-                var forecast = [];
-
+            $.getJSON(_buildWeatherUrl(loc, "forecast")).done(function (forecastData) {
                 forecastData.list.forEach(function (item) {
                     var forecastItem = {
                         date: new Date(item.dt * 1000),
@@ -49,12 +58,26 @@ define(function (require, exports) {
                 });
 
                 var result = {
-                    location: loc.location,
+                    location: "",
                     current: current,
                     forecast: forecast
                 };
+                if (loc.hasOwnProperty("location")) {
+                    result.location = loc.location;
 
-                done(null, result);
+                    return done(null, result);
+                }
+            
+                $.getJSON("data/country_names.json").done(function (countryData) {
+                    var countryName = countryData[forecastData.city.country];
+                    result.location = forecastData.city.name + ", " + countryName;
+
+                    return done(null, result);
+                }).fail(function () {
+                    result.location = forecastData.city.name + ", " + forecastData.city.country;
+
+                    return done(null, result);               
+                });
             }).fail(function () {
                 return done("Unable to load forecase data", null);
             });
