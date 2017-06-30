@@ -23,6 +23,7 @@
     },
     "globals": {
         "requirejs": true,
-        "define": true    
+        "define": true,
+        "google": true    
     }
 }

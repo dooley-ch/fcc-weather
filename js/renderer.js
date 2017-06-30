@@ -3,12 +3,60 @@ define(function (require, exports) {
 
     var $ = require("jquery");
 
+    var _backgroundMode = 0;
     var _useMetricTemp = true;
     var _weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     var _location;
     var _currentWeather;
     var _forecasts = [];
+
+    /**
+     * This functin determines the background to use
+     * based on the current weather id
+     * 
+     * @param {number} weatherId - the current weather id 
+     * @returns {number} - image id to use as background
+     */
+    function _getBackgroundId(weatherId) {
+        switch(true) {
+        case (weatherId >= 200) && (weatherId <= 232):
+            return 1; // Thunderstorm
+        case (weatherId >= 300) && (weatherId <= 321):
+            return 2; // Drizzle
+        case (weatherId >= 500) && (weatherId <= 531):
+            return 3; // Rain
+        case (weatherId >= 600) && (weatherId <= 622):
+            return 4; // Snow
+        case weatherId == 800:
+            return 5; // Clear
+        case (weatherId > 800) && (weatherId <= 804):
+            return 6; // Clouds
+        default:
+            return 0;
+        }
+    }
+
+    /**
+     * This function updates the page background based on the current weather id
+     * 
+     * @returns {void}
+     */
+    function _updateBackground() {
+        var newBackgroundId = _getBackgroundId(Number(_currentWeather.weatherId));
+
+        if (newBackgroundId === _backgroundMode) {
+            return;
+        }
+
+        var oldClass = "background_" + _backgroundMode;
+        var newClass = "background_" + newBackgroundId;
+
+        $("#backgroundImage").toggleClass(oldClass, false);
+        $("#backgroundImage").toggleClass(newClass, true);
+
+        _backgroundMode = newBackgroundId;
+    }
 
     /**
      * Creates an object literal that is used to store a daily forecast
@@ -55,6 +103,7 @@ define(function (require, exports) {
      * @return {void}
      */
     function _parseWeatherData(data) {
+        _location = data.location;
         _currentWeather = data.current;
 
         var currentDate = "";
@@ -86,21 +135,23 @@ define(function (require, exports) {
     function _showForecastDialog(column) {
         var tableContents;
         var item = _forecasts[column];
-        var title = item.items[0].dateText.substring(0, 10);
 
-        // TODO: format date according to user settings.
-        $("#dialogTitle").text(title);
+        $("#dialogTitle").text(item.items[0].date.toLocaleDateString());
 
         tableContents = "<table class=\"table table-striped table-condensed\">";
         
         $.each(item.items, function (i, item) {
             var row = "<tr>";
 
-            row = row + "<td class=\"dlg-time\">" + item.dateText.substring(11, 16) + "</td>";
+            row = row + "<td class=\"dlg-time\">" + item.date.toLocaleTimeString().substring(0, 5) + "</td>";
             row = row + "<td><img src=\"img/" + item.weatherIcon + ".png\" class=\"dlg-img\"/></td>";
 
-            // TODO: Use correct temp format as per toggle
-            row = row + "<td class=\"dlg-temp\">" + item.temperature + " C</td>";
+            if (_useMetricTemp) {
+                row = row + "<td class=\"dlg-temp\">" + item.temperature + " C</td>";
+            } else {
+                row = row + "<td class=\"dlg-temp\">" + _round(_toFahrenheit(item.temperature), 1) + " F</td>";
+            }
+
             row = row + "<td class=\"dlg-desc\">" + item.weatherDescription + "</td>";
             
             row = row + "</tr>";
@@ -215,6 +266,9 @@ define(function (require, exports) {
         imgUrl = "img/" + item.imgUrl + ".png";
         $("#dayFiveImage").attr("src", imgUrl);
         $("#dayFiveDate").text(item.weekday);
+    
+        // Update page background
+        _updateBackground();
     }
 
     /**
@@ -231,8 +285,7 @@ define(function (require, exports) {
         _toggleMetricTemp();
     };
 
-    exports.display = function(location, weatherData) {
-        _location = location;
+    exports.display = function(weatherData) {
         _parseWeatherData(weatherData);
 
         _display();

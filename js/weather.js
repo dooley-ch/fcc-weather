@@ -13,7 +13,7 @@ define(function (require, exports) {
      * @param {function(string, object)} done - A callback functon to return the data 
      * @return {void}
      */
-    function _getWeather(zip, countryCode, done) {
+    function _getWeather(loc, done) {
 
         $.getJSON("data/currentWeather.json").done(function (currentData) {
             var current;
@@ -44,14 +44,12 @@ define(function (require, exports) {
                 });
 
                 var result = {
+                    location: loc.location,
                     current: current,
                     forecast: forecast
                 };
 
-                if (typeof done === "function") {
-                    done(null, result);
-                }
-
+                done(null, result);
             }).fail(function () {
                 return done("Unable to load forecase data", null);
             });

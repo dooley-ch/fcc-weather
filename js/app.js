@@ -53,20 +53,19 @@ define("app", function (require, exports) {
             renderer.displayForecast(3);
         });
 
-        $("#dayButtonFive").click(function (e) { 
+        $("#dayButtonFive").click(function () { 
             renderer.displayForecast(4);
         });
 
-        // TODO: pass location to get weather
         loc.getLocation(function (err, loc) {
             if (err != null) {
                 alert("Unable to obtain your location: " + err);
             } else {
-                weather.getWeather("4900", "ch", function (err, weatherData) {
+                weather.getWeather(loc, function (err, weatherData) {
                     if (err != null) {
                         alert("Unable to obtain weather information: " + err);
                     } else {
-                        renderer.display("Kilmaine, Ireland", weatherData);
+                        renderer.display(weatherData);
                     }
                 });
             }

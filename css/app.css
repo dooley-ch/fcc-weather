@@ -85,6 +85,46 @@ hr {
     }
 }
 
+@media (max-height: 375px) {
+    .weather-base-panel {
+        margin-top: 2em;
+    }
+
+    .hideOnLandScape {
+        display: none;
+    }
+}
+
+@media (max-height: 414px) {
+    .weather-base-panel {
+        margin-top: 3em;
+    }
+
+    .hideOnLandScape {
+        display: none;
+    }
+}
+
+@media (max-height: 360px) {
+    .weather-base-panel {
+        margin-top: 2em;
+    }
+
+    .hideOnLandScape {
+        display: none;
+    }
+}
+
+@media (max-height: 320px) {
+    .weather-base-panel {
+        margin-top: 0em;
+    }
+
+    .hideOnLandScape {
+        display: none;
+    }
+}
+
 /* ----------- Forecast Dialog ----------- */
 
 .dlg-title {
