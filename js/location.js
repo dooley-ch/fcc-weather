@@ -1,8 +1,7 @@
-define(function (require, exports, module) {
-    //jshint unused:false
-    'use strict';
-
-    function _currentLocation() {
+define(function (require, exports) {
+    "use strict";
+    
+    function _getLocation(callback) {
         var loc = {
             latitude: 0,
             longitude: 0,
@@ -12,14 +11,10 @@ define(function (require, exports, module) {
             zip: "" 
         };
 
-        return loc;
+        return callback(null, loc);
     }
 
-    function _getLocation() {
-        return _CurrentLocation();
-    }
-
-    exports.getLocation = function () {
-        return _getLocation();
+    exports.getLocation = function (callback) {
+        return _getLocation(callback);
     };
 });

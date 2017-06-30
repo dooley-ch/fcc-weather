@@ -1,57 +1,75 @@
 requirejs.config({
     shim : {
         bootstrap : {
-            deps : [ 'jquery'],
-            exports: 'Bootstrap'
+            deps : [ "jquery"],
+            exports: "Bootstrap"
         }
     },
 
     paths: {
-        jquery: 'vendor/jquery-3.2.1.min',
-        bootstrap : 'vendor/bootstrap.min'
+        jquery: "vendor/jquery-3.2.1.min",
+        bootstrap : "vendor/bootstrap.min",
     }
 });
 
-define("app", function (require, exports, module) {
-    //jshint unused:false
-    'use strict';
+define("app", function (require, exports) {
+    "use strict";
 
     var $ = require("jquery");
-    var bootstrap = require("bootstrap");
-    
+    require("bootstrap");
+
     var loc = require("location");
     var renderer = require("renderer");
     var weather = require("weather");
 
+    /**
+     * This funtion initializes the application 
+     * and displays the weather data on the screen
+     * 
+     * @return {void}
+     */
     function _init() {
         $(window).on("load resize", function () {
             $(".fill-screen").css("height", window.innerHeight);
         });
 
-        renderer.init();
-
-        $("#tempButton").click(function (e) { 
+        $("#tempButton").click(function () { 
             renderer.toggleMetricTemp();
         });
 
-        $("#dayButtonOne").click(function (e) { 
-            renderer.displayDayOne();
+        $("#dayButtonOne").click(function () { 
+            renderer.displayForecast(0);
         });
 
-        $("#dayButtonTwo").click(function (e) { 
-            renderer.displayDayTwo();
+        $("#dayButtonTwo").click(function () { 
+            renderer.displayForecast(1);
         });
 
-        $("#dayButtonThree").click(function (e) { 
-            renderer.displayDayThree();
+        $("#dayButtonThree").click(function () { 
+            renderer.displayForecast(2);
         });
 
-        $("#dayButtonFour").click(function (e) { 
-            renderer.displayDayFour();
+        $("#dayButtonFour").click(function () { 
+            renderer.displayForecast(3);
         });
 
         $("#dayButtonFive").click(function (e) { 
-            renderer.displayDayFive();
+            renderer.displayForecast(4);
+        });
+
+        // TODO: pass location to get weather
+        loc.getLocation(function (err, loc) {
+            if (err != null) {
+                alert("Unable to obtain your location: " + err);
+            } else {
+                weather.getWeather("4900", "ch", function (err, weatherData) {
+                    if (err != null) {
+                        alert("Unable to obtain weather information: " + err);
+                    } else {
+                        renderer.display("Kilmaine, Ireland", weatherData);
+                    }
+                });
+            }
         });
     }
 
@@ -60,15 +78,7 @@ define("app", function (require, exports, module) {
     };
 });
 
-requirejs(['app', 'renderer', 'weather'], function (app, renderer, weather) {
-    'use strict';
+requirejs(["app"], function (app) {
+    "use strict";
     app.init();
-
-    weather.getWeather("4900", "ch", function (err, data) {
-        if (err != null) {
-            alert("Unable to obtain weather information: " + err);
-        } else {
-            renderer.display("Kilmaine, Ireland", data);
-        }
-    });
 });

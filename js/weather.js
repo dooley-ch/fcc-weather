@@ -1,20 +1,19 @@
-define(function (require, exports, module) {
-    //jshint unused:false
-    'use strict';
+define(function (require, exports) {
+    "use strict";
 
-
+    var $ = require("jquery");
+    
     /**
      * This function obtains the current weather and forecast data via
      * two calls to the openweathermap api:
      * https://openweathermap.org
      * 
-     * @param {string}   zip             - The zip code for the city 
-     * @param {string}   countryCode     - The 2 letter ISO code for the country
-     * @param {function} done          - A callback functon to return the data 
+     * @param {string}   zip                  - The zip code for the city 
+     * @param {string}   countryCode          - The 2 letter ISO code for the country
+     * @param {function(string, object)} done - A callback functon to return the data 
+     * @return {void}
      */
     function _getWeather(zip, countryCode, done) {
-        var forecast = [];
-        var current;
 
         $.getJSON("data/currentWeather.json").done(function (currentData) {
             var current;

@@ -1,25 +1,20 @@
-define(function (require, exports, module) {
-    //jshint unused:false
-    'use strict';
+define(function (require, exports) {
+    "use strict";
 
     var $ = require("jquery");
 
     var _useMetricTemp = true;
-
-    var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    var _locationID;
-    var _currentImageID;
-    var _currentTempID;
-    var _currentWeatherID;
-    var _currentWindSpeedID;
-
-    var _dialog;
+    var _weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     var _location;
     var _currentWeather;
     var _forecasts = [];
 
+    /**
+     * Creates an object literal that is used to store a daily forecast
+     * 
+     * @returns {{weekday: string, imgUrl: string, items:[]}}
+     */
     function _newForecastItem() {
         var item = {
             weekday: "",
@@ -30,6 +25,13 @@ define(function (require, exports, module) {
         return item;
     }
 
+    /**
+     * Sets the mid point of the 3 hourly forecast to be the 
+     * daily forecast.
+     * 
+     * @param {object} data - The forecast item that needs to have the daily forecase set 
+     * @return {void}
+     */
     function _setDailyForecast(data) {
         var item;
 
@@ -45,6 +47,13 @@ define(function (require, exports, module) {
         return data;
     }
 
+    /**
+     * This function converts the forecast data obtained from the remote site 
+     * into a format to be used for display purposes
+     * 
+     * @param {object} data - The returned forecast data 
+     * @return {void}
+     */
     function _parseWeatherData(data) {
         _currentWeather = data.current;
 
@@ -66,23 +75,62 @@ define(function (require, exports, module) {
             
             currentDayForecast.items.push(item);
         });
-
-
     }
 
-    function _init() {
-        _locationID = $("#locationId");
-        _currentImageID = $("#imgId");
-        _currentTempID = $("#tempId");
-        _currentWeatherID = $("#weatherId");
-        _currentWindSpeedID = $("#windSpeedId");
-        _dialog = $('#tempDialog');
+    /**
+     * This function populates and displays the forecast dialog
+     * 
+     * @param {number} column - The forecast day as an array index 
+     * @return {void}
+     */
+    function _showForecastDialog(column) {
+        var tableContents;
+        var item = _forecasts[column];
+        var title = item.items[0].dateText.substring(0, 10);
+
+        // TODO: format date according to user settings.
+        $("#dialogTitle").text(title);
+
+        tableContents = "<table class=\"table table-striped table-condensed\">";
+        
+        $.each(item.items, function (i, item) {
+            var row = "<tr>";
+
+            row = row + "<td class=\"dlg-time\">" + item.dateText.substring(11, 16) + "</td>";
+            row = row + "<td><img src=\"img/" + item.weatherIcon + ".png\" class=\"dlg-img\"/></td>";
+
+            // TODO: Use correct temp format as per toggle
+            row = row + "<td class=\"dlg-temp\">" + item.temperature + " C</td>";
+            row = row + "<td class=\"dlg-desc\">" + item.weatherDescription + "</td>";
+            
+            row = row + "</tr>";
+
+            tableContents = tableContents + row;
+        });
+
+        tableContents = tableContents + "</table>";
+
+        $("#tableGrid").html(tableContents);
+        
+        $("#tempDialog").modal("show");
     }
 
+    /**
+     * This function returns the short day name for the given date
+     * 
+     * @param {Date} dt  - The date for which the short name is required
+     * @returns {string} - The short day name for the date
+     */
     function _getDayOfWeek(dt) {
-        return weekdays[dt.getDay()];
+        return _weekdays[dt.getDay()];
     }
 
+    /**
+     * This function upper cases the first letter of each word
+     * 
+     * @param {string} str - The string to title case 
+     * @returns {string}   - The title cased string
+     */
     function _titleCase(str) {
         var newstr = str.split(" ");
 
@@ -97,32 +145,50 @@ define(function (require, exports, module) {
         return newstr;
     }  
 
+    /**
+     * This function rounds a given float to a given number of decimal places
+     * 
+     * @param {number} value    - The number to round
+     * @param {number} decimals - The number of required places after the decimal
+     * @returns {number}        - The rounded value
+     */
     function _round(value, decimals) {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+        return Number(Math.round(value+"e"+decimals)+"e-"+decimals);
     }
 
+    /**
+     * This function converts a celsius value to it's fahrenheit value
+     * 
+     * @param {number} value - the celsius value to convert
+     * @returns {number}     - the converted value
+     */
     function _toFahrenheit(value) {
         return (value * (9/5)) + 32;
     }
 
+    /**
+     * Displays the current weather data on the page
+     * 
+     * @return {void}
+     */
     function _display() {
         // Show the location
-        _locationID.text("(" + _location + ")");
+        $("#locationId").text("(" + _location + ")");
 
         // Show the current weather
         var imgUrl = "img/" + _currentWeather.weatherIcon + ".png";
-        _currentImageID.attr("src", imgUrl);
+        $("#imgId").attr("src", imgUrl);
 
         if (_useMetricTemp) {
-            _currentTempID.text(_round(_currentWeather.temperature, 1) + " C");            
+            $("#tempId").text(_round(_currentWeather.temperature, 1) + " C");            
         } else {
-            _currentTempID.text(_round(_toFahrenheit(_currentWeather.temperature), 1) + " F");
+            $("#tempId").text(_round(_toFahrenheit(_currentWeather.temperature), 1) + " F");
         }
 
         var knots = _round(_currentWeather.windSpeed * 1.943844, 2);
-        _currentWindSpeedID.text("Wind Speed: " + knots + " knots");
+        $("#windSpeedId").text("Wind Speed: " + knots + " knots");
 
-        _currentWeatherID.text(_titleCase(_currentWeather.weatherDescription));
+        $("#weatherId").text(_titleCase(_currentWeather.weatherDescription));
 
         // Show forecast icons
         var item = _forecasts[0];
@@ -151,34 +217,15 @@ define(function (require, exports, module) {
         $("#dayFiveDate").text(item.weekday);
     }
 
+    /**
+     * Toggles the metric temperature flag and redisplays the data
+     * 
+     * @return {void}
+     */
     function _toggleMetricTemp() {
         _useMetricTemp = !_useMetricTemp;
         _display();
     }
-
-    function _displayDayOne() {
-        _dialog.modal('show');
-    }
-
-    function _displayDayTwo() {
-        _dialog.modal('show');
-    }
-
-    function _displayDayThree() {
-        _dialog.modal('show');
-    }
-
-    function _displayDayFour() {
-        _dialog.modal('show');
-    }
-
-    function _displayDayFive() {
-        _dialog.modal('show');
-    }
-
-    exports.init = function () {
-        _init();
-    };    
 
     exports.toggleMetricTemp = function() {
         _toggleMetricTemp();
@@ -191,23 +238,7 @@ define(function (require, exports, module) {
         _display();
     };
 
-    exports.displayDayOne = function () {
-        _displayDayOne();
-    };
-
-    exports.displayDayTwo = function () {
-        _displayDayTwo();
-    };
-
-    exports.displayDayThree = function () {
-        _displayDayThree();
-    };
-
-    exports.displayDayFour = function () {
-        _displayDayFour();
-    };
-
-    exports.displayDayFive = function () {
-        _displayDayFive();
+    exports.displayForecast = function (column) {
+        _showForecastDialog(column);
     };
 });
