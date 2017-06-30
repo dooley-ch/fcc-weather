@@ -267,6 +267,8 @@ define(function (require, exports) {
         $("#dayFiveImage").attr("src", imgUrl);
         $("#dayFiveDate").text(item.weekday);
     
+        $("#masterPanel").toggleClass("hidden", false);
+
         // Update page background
         _updateBackground();
     }
