@@ -4,7 +4,7 @@ define(function (require, exports) {
     var $ = require("jquery");
 
     var _backgroundMode = 0;
-    var _useMetricTemp = true;
+    var _useMetric = true;
     var _weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     var _location;
@@ -103,6 +103,7 @@ define(function (require, exports) {
      * @return {void}
      */
     function _parseWeatherData(data) {
+        _useMetric = data.usesMetric;
         _location = data.location;
         _currentWeather = data.current;
 
@@ -136,34 +137,36 @@ define(function (require, exports) {
         var tableContents;
         var item = _forecasts[column];
 
-        $("#dialogTitle").text(item.items[0].date.toLocaleDateString());
+        if (item) {
+            $("#dialogTitle").text(item.items[0].date.toLocaleDateString());
 
-        tableContents = "<table class=\"table table-striped table-condensed\">";
-        
-        $.each(item.items, function (i, item) {
-            var row = "<tr>";
-
-            row = row + "<td class=\"dlg-time\">" + item.date.toLocaleTimeString().substring(0, 5) + "</td>";
-            row = row + "<td><img src=\"img/" + item.weatherIcon + ".png\" class=\"dlg-img\"/></td>";
-
-            if (_useMetricTemp) {
-                row = row + "<td class=\"dlg-temp\">" + item.temperature + " C</td>";
-            } else {
-                row = row + "<td class=\"dlg-temp\">" + _round(_toFahrenheit(item.temperature), 1) + " F</td>";
-            }
-
-            row = row + "<td class=\"dlg-desc\">" + item.weatherDescription + "</td>";
+            tableContents = "<table class=\"table table-striped table-condensed\">";
             
-            row = row + "</tr>";
+            $.each(item.items, function (i, item) {
+                var row = "<tr>";
 
-            tableContents = tableContents + row;
-        });
+                row = row + "<td class=\"dlg-time\">" + item.date.toLocaleTimeString().substring(0, 5) + "</td>";
+                row = row + "<td><img src=\"img/" + item.weatherIcon + ".png\" class=\"dlg-img\"/></td>";
 
-        tableContents = tableContents + "</table>";
+                if (_useMetric) {
+                    row = row + "<td class=\"dlg-temp\">" + item.temperature + " C</td>";
+                } else {
+                    row = row + "<td class=\"dlg-temp\">" + _round(_toFahrenheit(item.temperature), 1) + " F</td>";
+                }
 
-        $("#tableGrid").html(tableContents);
-        
-        $("#tempDialog").modal("show");
+                row = row + "<td class=\"dlg-desc\">" + item.weatherDescription + "</td>";
+                
+                row = row + "</tr>";
+
+                tableContents = tableContents + row;
+            });
+
+            tableContents = tableContents + "</table>";
+
+            $("#tableGrid").html(tableContents);
+            
+            $("#tempDialog").modal("show");
+        }
     }
 
     /**
@@ -230,7 +233,7 @@ define(function (require, exports) {
         var imgUrl = "img/" + _currentWeather.weatherIcon + ".png";
         $("#imgId").attr("src", imgUrl);
 
-        if (_useMetricTemp) {
+        if (_useMetric) {
             $("#tempId").text(_round(_currentWeather.temperature, 1) + " C");            
         } else {
             $("#tempId").text(_round(_toFahrenheit(_currentWeather.temperature), 1) + " F");
@@ -243,29 +246,54 @@ define(function (require, exports) {
 
         // Show forecast icons
         var item = _forecasts[0];
-        imgUrl = "img/" + item.imgUrl + ".png";
-        $("#dayOneImage").attr("src", imgUrl);
-        $("#dayOneDate").text(item.weekday);
+        if (item) {
+            imgUrl = "img/" + item.imgUrl + ".png";
+            $("#dayOneImage").attr("src", imgUrl);
+            $("#dayOneDate").text(item.weekday);
+        } else {
+            $("#dayOneImage").attr("src", "");
+            $("#dayOneDate").text("NA");
+        }
 
         item = _forecasts[1];
-        imgUrl = "img/" + item.imgUrl + ".png";
-        $("#dayTwoImage").attr("src", imgUrl);
-        $("#dayTwoDate").text(item.weekday);
+        if (item) {
+            imgUrl = "img/" + item.imgUrl + ".png";
+            $("#dayTwoImage").attr("src", imgUrl);
+            $("#dayTwoDate").text(item.weekday);
+        } else {
+            $("#dayTwoImage").attr("src", "");
+            $("#dayTwoDate").text("N/A");
+        }
 
         item = _forecasts[2];
-        imgUrl = "img/" + item.imgUrl + ".png";
-        $("#dayThreeImage").attr("src", imgUrl);
-        $("#dayThreeDate").text(item.weekday);
+        if (item) {
+            imgUrl = "img/" + item.imgUrl + ".png";
+            $("#dayThreeImage").attr("src", imgUrl);
+            $("#dayThreeDate").text(item.weekday);
+        } else {
+            $("#dayThreeImage").attr("src", "");
+            $("#dayThreeDate").text("N/A");
+        }
 
         item = _forecasts[3];
-        imgUrl = "img/" + item.imgUrl + ".png";
-        $("#dayFourImage").attr("src", imgUrl);
-        $("#dayFourDate").text(item.weekday);
+        if (item) {
+            imgUrl = "img/" + item.imgUrl + ".png";
+            $("#dayFourImage").attr("src", imgUrl);
+            $("#dayFourDate").text(item.weekday);
+        } else {
+            $("#dayFourImage").attr("src", "");
+            $("#dayFourDate").text("N/A");            
+        }
 
         item = _forecasts[4];
-        imgUrl = "img/" + item.imgUrl + ".png";
-        $("#dayFiveImage").attr("src", imgUrl);
-        $("#dayFiveDate").text(item.weekday);
+        if (item) {
+            imgUrl = "img/" + item.imgUrl + ".png";
+            $("#dayFiveImage").attr("src", imgUrl);
+            $("#dayFiveDate").text(item.weekday);
+        } else {
+            $("#dayFiveImage").attr("src", "");
+            $("#dayFiveDate").text("N/A");            
+        }
     
         $("#masterPanel").toggleClass("hidden", false);
 
@@ -279,7 +307,7 @@ define(function (require, exports) {
      * @return {void}
      */
     function _toggleMetricTemp() {
-        _useMetricTemp = !_useMetricTemp;
+        _useMetric = !_useMetric;
         _display();
     }
 

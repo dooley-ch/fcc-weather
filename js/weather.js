@@ -19,6 +19,33 @@ define(function (require, exports) {
                 "&lon=" + loc.longitude + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
         }
     }
+
+    /**
+     * This function determines if a given country uses metric or not
+     * 
+     * @param {string} countryCode - ISO 2 char code to test 
+     * @returns {boolean}
+     */
+    function _usesMetric(countryCode) {
+        if (countryCode === "US") {
+            return false;
+        }
+
+        if (countryCode === "BS") {
+            return false;
+        }
+
+        if (countryCode === "BZ") {
+            return false;
+        }
+
+        if (countryCode === "KY") {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * This function obtains the current weather and forecast data via
      * two calls to the openweathermap api:
@@ -60,8 +87,10 @@ define(function (require, exports) {
                 var result = {
                     location: "",
                     current: current,
-                    forecast: forecast
+                    forecast: forecast,
+                    usesMetric: _usesMetric(forecastData.city.country)
                 };
+
                 if (loc.hasOwnProperty("location")) {
                     result.location = loc.location;
 
