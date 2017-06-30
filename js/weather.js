@@ -14,8 +14,10 @@ define(function (require, exports) {
      * @return {void}
      */
     function _getWeather(loc, done) {
+        var url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?zip=" +
+            loc.zip + "," + loc.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
 
-        $.getJSON("data/currentWeather.json").done(function (currentData) {
+        $.getJSON(url).done(function (currentData) {
             var current;
 
             current = {
@@ -27,7 +29,10 @@ define(function (require, exports) {
                 windSpeed: currentData.wind.speed
             };
 
-            $.getJSON("data/weather.json").done(function (forecastData) {
+            url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?zip=" +
+                loc.zip + "," + loc.countryCode + "&units=metric&APIKEY=7f39210ab87154b09c8ed5ed76fb8d3a";
+
+            $.getJSON(url).done(function (forecastData) {
                 var forecast = [];
 
                 forecastData.list.forEach(function (item) {

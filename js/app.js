@@ -1,14 +1,19 @@
 requirejs.config({
     shim : {
         bootstrap : {
-            deps : [ "jquery"],
+            deps : ["jquery"],
             exports: "Bootstrap"
+        },
+        loading: {
+            deps : ["jquery"],
+            exports: "Loading"
         }
     },
 
     paths: {
         jquery: "vendor/jquery-3.2.1.min",
         bootstrap : "vendor/bootstrap.min",
+        loading : "jquery.loading.min"
     }
 });
 
@@ -17,6 +22,7 @@ define("app", function (require, exports) {
 
     var $ = require("jquery");
     require("bootstrap");
+    require("loading");
 
     var loc = require("location");
     var renderer = require("renderer");
@@ -29,6 +35,9 @@ define("app", function (require, exports) {
      * @return {void}
      */
     function _init() {
+        //$.showLoading({name: "line-pulse", allowHide: false });
+        $.showLoading({name: "square-flip", allowHide: false });
+
         $(window).on("load resize", function () {
             $(".fill-screen").css("height", window.innerHeight);
         });
@@ -59,13 +68,16 @@ define("app", function (require, exports) {
 
         loc.getLocation(function (err, loc) {
             if (err != null) {
+                $.hideLoading();
                 alert("Unable to obtain your location: " + err);
             } else {
                 weather.getWeather(loc, function (err, weatherData) {
                     if (err != null) {
+                        $.hideLoading();
                         alert("Unable to obtain weather information: " + err);
                     } else {
                         renderer.display(weatherData);
+                        $.hideLoading();
                     }
                 });
             }
