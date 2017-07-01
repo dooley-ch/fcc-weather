@@ -125,6 +125,11 @@ define(function (require, exports) {
             
             currentDayForecast.items.push(item);
         });
+
+        if ((_forecasts.length === 4) && (currentDayForecast.items.length === 8)) {
+            // Handle exceptional case where we get exactly 5 days forecast
+            _forecasts.push(_setDailyForecast(currentDayForecast));
+        }
     }
 
     /**
